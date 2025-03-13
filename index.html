@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codificador y Descodificador con Replace, Test y Match</title>
+</head>
+<body>
+    <div>
+        <h1>Codificador y Descodificador</h1>
+        <textarea id="mensaje" placeholder="Escribe tu mensaje aquí..." rows="4" cols="50"></textarea>
+        <br>
+        <button onclick="codificar()">Codificar</button>
+        <button onclick="descodificar()">Descodificar</button>
+        <br>
+        <p><strong>Resultado:</strong></p>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        
+        let mensajeCodificado = '';
+
+        
+        function codificar() {
+          
+            let mensaje = document.getElementById('mensaje').value;
+
+          
+            let tieneVocales = /[aeiou]/i.test(mensaje);
+            if (mensaje === '') {
+                alert('Escribe un mensaje primero.');
+                return;
+            } else if (!tieneVocales) {
+                alert('El mensaje debe tener al menos una vocal para codificar.');
+                return;
+            }
+
+            
+            let vocales = mensaje.match(/[aeiou]/gi);
+            let cantidadVocales = vocales ? vocales.length : 0;
+
+      
+            mensajeCodificado = mensaje;
+            mensajeCodificado = mensajeCodificado.replace(/[aá]/gi, '1');
+            mensajeCodificado = mensajeCodificado.replace(/[eé]/gi, '2');
+            mensajeCodificado = mensajeCodificado.replace(/[ií]/gi, '3');
+            mensajeCodificado = mensajeCodificado.replace(/[oó]/gi, '4');
+            mensajeCodificado = mensajeCodificado.replace(/[uú]/gi, '5');
+
+            document.getElementById('resultado').innerText = mensajeCodificado;
+        }
+
+        function descodificar() {
+            if (mensajeCodificado === '') {
+                alert('Primero codifica un mensaje.');
+                return;
+            }
+
+            let tieneNumeros = /[1-5]/.test(mensajeCodificado);
+            if (!tieneNumeros) {
+                alert('El mensaje codificado debe tener números (1 a 5) para descodificar.');
+                return;
+            }
+
+           
+            let numeros = mensajeCodificado.match(/[1-5]/g);
+            let cantidadNumeros = numeros ? numeros.length : 0;
+
+            
+            let mensajeDescodificado = mensajeCodificado;
+            mensajeDescodificado = mensajeDescodificado.replace(/1/g, 'a');
+            mensajeDescodificado = mensajeDescodificado.replace(/2/g, 'e');
+            mensajeDescodificado = mensajeDescodificado.replace(/3/g, 'i');
+            mensajeDescodificado = mensajeDescodificado.replace(/4/g, 'o');
+            mensajeDescodificado = mensajeDescodificado.replace(/5/g, 'u');
+
+            document.getElementById('resultado').innerText = mensajeDescodificado;
+        }
+    </script>
+</body>
+</html>

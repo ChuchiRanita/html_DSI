@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codificador y Descodificador con Replace, Test y Match</title>
+    <title>Codificador y Descodificador (Forma Pura)</title>
 </head>
 <body>
     <div>
@@ -18,36 +18,42 @@
     </div>
 
     <script>
-        
         let mensajeCodificado = '';
 
-        
         function codificar() {
-          
             let mensaje = document.getElementById('mensaje').value;
 
-          
-            let tieneVocales = /[aeiou]/i.test(mensaje);
             if (mensaje === '') {
                 alert('Escribe un mensaje primero.');
                 return;
-            } else if (!tieneVocales) {
-                alert('El mensaje debe tener al menos una vocal para codificar.');
-                return;
             }
 
+            let tieneVocales = /[aeiouAEIOUáéíóúÁÉÍÓÚ]/.test(mensaje);
             
-            let vocales = mensaje.match(/[aeiou]/gi);
-            let cantidadVocales = vocales ? vocales.length : 0;
 
-      
             mensajeCodificado = mensaje;
-            mensajeCodificado = mensajeCodificado.replace(/[aá]/gi, '1');
-            mensajeCodificado = mensajeCodificado.replace(/[eé]/gi, '2');
-            mensajeCodificado = mensajeCodificado.replace(/[ií]/gi, '3');
-            mensajeCodificado = mensajeCodificado.replace(/[oó]/gi, '4');
-            mensajeCodificado = mensajeCodificado.replace(/[uú]/gi, '5');
+            mensajeCodificado = mensajeCodificado.replace(/a/g, '1');
+            mensajeCodificado = mensajeCodificado.replace(/e/g, '2');
+            mensajeCodificado = mensajeCodificado.replace(/i/g, '3');
+            mensajeCodificado = mensajeCodificado.replace(/o/g, '4');
+            mensajeCodificado = mensajeCodificado.replace(/u/g, '5');
+            mensajeCodificado = mensajeCodificado.replace(/á/g, '¨');
+            mensajeCodificado = mensajeCodificado.replace(/é/g, '{');
+            mensajeCodificado = mensajeCodificado.replace(/í/g, '}');
+            mensajeCodificado = mensajeCodificado.replace(/ó/g, '=');
+            mensajeCodificado = mensajeCodificado.replace(/ú/g, '-');
+            mensajeCodificado = mensajeCodificado.replace(/A/g, '6');
+            mensajeCodificado = mensajeCodificado.replace(/E/g, '7');
+            mensajeCodificado = mensajeCodificado.replace(/I/g, '8');
+            mensajeCodificado = mensajeCodificado.replace(/O/g, '9');
+            mensajeCodificado = mensajeCodificado.replace(/U/g, '0');
+            mensajeCodificado = mensajeCodificado.replace(/Á/g, '#');
+            mensajeCodificado = mensajeCodificado.replace(/É/g, '~');
+            mensajeCodificado = mensajeCodificado.replace(/Í/g, '%');
+            mensajeCodificado = mensajeCodificado.replace(/Ó/g, '&');
+            mensajeCodificado = mensajeCodificado.replace(/Ú/g, '@');
 
+            
             document.getElementById('resultado').innerText = mensajeCodificado;
         }
 
@@ -57,16 +63,7 @@
                 return;
             }
 
-            let tieneNumeros = /[1-5]/.test(mensajeCodificado);
-            if (!tieneNumeros) {
-                alert('El mensaje codificado debe tener números (1 a 5) para descodificar.');
-                return;
-            }
-
-           
-            let numeros = mensajeCodificado.match(/[1-5]/g);
-            let cantidadNumeros = numeros ? numeros.length : 0;
-
+            let tieneCodigos = /[1-5][aeiouAEIOUáéíóúÁÉÍÓÚ]/.test(mensajeCodificado);
             
             let mensajeDescodificado = mensajeCodificado;
             mensajeDescodificado = mensajeDescodificado.replace(/1/g, 'a');
@@ -74,7 +71,23 @@
             mensajeDescodificado = mensajeDescodificado.replace(/3/g, 'i');
             mensajeDescodificado = mensajeDescodificado.replace(/4/g, 'o');
             mensajeDescodificado = mensajeDescodificado.replace(/5/g, 'u');
+            mensajeDescodificado = mensajeDescodificado.replace(/¨/g, 'á');
+            mensajeDescodificado = mensajeDescodificado.replace(/{/g, 'é');
+            mensajeDescodificado = mensajeDescodificado.replace(/}/g, 'í');
+            mensajeDescodificado = mensajeDescodificado.replace(/=/g, 'ó');
+            mensajeDescodificado = mensajeDescodificado.replace(/-/g, 'ú');
+            mensajeDescodificado = mensajeDescodificado.replace(/6/g, 'A');
+            mensajeDescodificado = mensajeDescodificado.replace(/7/g, 'E');
+            mensajeDescodificado = mensajeDescodificado.replace(/8/g, 'I');
+            mensajeDescodificado = mensajeDescodificado.replace(/9/g, 'O');
+            mensajeDescodificado = mensajeDescodificado.replace(/0/g, 'U');
+            mensajeDescodificado = mensajeDescodificado.replace(/#/g, 'Á');
+            mensajeDescodificado = mensajeDescodificado.replace(/~/g, 'É');
+            mensajeDescodificado = mensajeDescodificado.replace(/%/g, 'Í');
+            mensajeDescodificado = mensajeDescodificado.replace(/&/g, 'Ó');
+            mensajeDescodificado = mensajeDescodificado.replace(/@/g, 'Ú');
 
+            
             document.getElementById('resultado').innerText = mensajeDescodificado;
         }
     </script>
